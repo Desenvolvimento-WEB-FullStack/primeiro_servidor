@@ -4,11 +4,14 @@
   "main": "main.js",
   "type": "module",
   "dependencies": {
+    "cors": "^2.8.6",
     "express": "^5.2.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
   "scripts": {
-    "start": "node src/main.js"
+    "start": "nodemon src/main.js"
   },
   "keywords": [],
   "author": "",
