@@ -1,44 +1,46 @@
 import express from "express";
 import cors from "cors";
+import { JSONFile } from "lowdb/node";
+import { Low } from "lowdb";
 
 const app = express();
-const PORTA_APP = 8888;
+const PORTA = 8888;
 
-app.use(cors());
-app.use(express.json());
+app.use(cors()); // Abre aplicação para receber requisicoes de outros lugares
+app.use(express.json()); // habilita reconhecimento de contéudo no formato JSON chegando servidor
 
-let contadorProdutos = 1;
-const produtos = [];
+//Configuração de banco de dados no arquivo JSON
+const adapter = new JSONFile("db_clientes.json");
+const db = new Low(adapter, { clientes: [], contador_clientes: 1 });
+db.read();
+// fim da configuracao
 
-app.get("/produtos", (request, response) => {
-  response.send({ produtos });
-});
+/*
+  Crie uma rota para cadastrar um novo cliente por nome(string), salario(numero) e habilitacao(booleano)
+*/
 
-app.post("/produtos", (request, response) => {
+app.post("/clientes", async (request, response) => {
   const meusDados = request.body;
-
-  console.log(meusDados.nome);
 
   if (!meusDados.nome || typeof meusDados.nome !== "string") {
     response.status(400).send({ error: "Nome é obrigatório" });
-  } else if (typeof meusDados.preco !== "number" || meusDados.preco <= 0) {
-    response.status(400).send({ error: "Preço deve ser númerico e maior 0" });
-  } else if (typeof meusDados.estoque !== "number" || meusDados.estoque < 0) {
+  } else if (typeof meusDados.salario !== "number" || meusDados.salario < 0) {
     response
       .status(400)
-      .send({ error: "Estoque dever ser númerico e no mínimo 0" });
-  } else if (typeof meusDados.ativo !== "boolean") {
-    response.status(400).send({ error: "O status deve sert um booleano" });
+      .send({ error: "Salario deve ser maior ou igual a 0 " });
+  } else if (typeof meusDados.habilitacao !== "boolean") {
+    response.status(400).send({ error: "A habilitacao deve ser true/false " });
   } else {
-    meusDados.id = contadorProdutos;
-    contadorProdutos++;
+    const novoCliente = { id: db.data.contador_clientes++, ...meusDados };
 
-    produtos.push(meusDados);
+    db.data.clientes.push(novoCliente);
+    await db.write();
 
-    response
-      .status(201)
-      .send({ data: { id: meusDados.id, nome: meusDados.nome } });
+    response.status(201).send({ data: novoCliente });
   }
+  // Fazer validação
 });
 
-app.listen(PORTA_APP, () => console.log(" 🚀🚀🚀 Servidor rodando"));
+app.listen(PORTA, () => {
+  console.log("Servidor está rodando");
+});
