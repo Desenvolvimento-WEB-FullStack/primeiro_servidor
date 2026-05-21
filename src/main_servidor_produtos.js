@@ -22,6 +22,20 @@ app.get("/produtos", (request, response) => {
   response.send(db.data.produtos);
 });
 
+app.get("/produtos/:id", (request, response) => {
+  const produtoId = Number(request.params.id);
+  console.log(request.query);
+  const produtos = db.data.produtos;
+
+  const produtoEncontrado = produtos.find((p) => p.id === produtoId);
+
+  if (produtoEncontrado) {
+    response.send(produtoEncontrado);
+  } else {
+    response.status(404).send({ error: "Produto nao encontrado" });
+  }
+});
+
 app.post("/produtos", (request, response) => {
   const meusDados = request.body;
 

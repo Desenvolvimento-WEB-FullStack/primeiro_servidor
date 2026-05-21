@@ -15,10 +15,6 @@ const db = new Low(adapter, { clientes: [], contador_clientes: 1 });
 db.read();
 // fim da configuracao
 
-/*
-  Crie uma rota para cadastrar um novo cliente por nome(string), salario(numero) e habilitacao(booleano)
-*/
-
 app.post("/clientes", async (request, response) => {
   const meusDados = request.body;
 
@@ -38,8 +34,38 @@ app.post("/clientes", async (request, response) => {
 
     response.status(201).send({ data: novoCliente });
   }
-  // Fazer validação
 });
+
+app.get("/clientes", (request, response) => {
+  const clientes_atuais = db.data.clientes;
+  response.send(clientes_atuais);
+});
+
+app.get("/clientes/:id", (request, response) => {
+  const idCliente = Number(request.params.id);
+  const clientes = db.data.clientes;
+
+  const clienteEncontrado = clientes.find(
+    (cliente) => cliente.id === idCliente,
+  );
+
+  if (!clienteEncontrado) {
+    response.status(404).send({ error: "Cliente nao encontrado na base" });
+  } else {
+    response.send(clienteEncontrado);
+  }
+});
+/*
+  MANEIRA NAO OTIMIZADA
+  let clienteEncontrado = null;
+ 
+  clientes.forEach((cliente) => {
+    if (cliente.id === idCliente) {
+      clienteEncontrado = cliente;
+    }
+  });
+  response.send(clienteEncontrado);
+  */
 
 app.listen(PORTA, () => {
   console.log("Servidor está rodando");
