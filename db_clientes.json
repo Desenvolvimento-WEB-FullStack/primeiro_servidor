@@ -1,0 +1,17 @@
+{
+  "clientes": [
+    {
+      "id": 4,
+      "nome": "Joao",
+      "salario": 1120,
+      "habilitacao": true
+    },
+    {
+      "id": 5,
+      "nome": "Pedro",
+      "salario": 11111111,
+      "habilitacao": true
+    }
+  ],
+  "contador_clientes": 6
+}

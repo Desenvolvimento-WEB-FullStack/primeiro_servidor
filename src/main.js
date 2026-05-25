@@ -67,6 +67,29 @@ app.get("/clientes/:id", (request, response) => {
   response.send(clienteEncontrado);
   */
 
+app.delete("/clientes/:id", async (request, response) => {
+  const idCliente = Number(request.params.id);
+
+  const clienteEncontrado = db.data.clientes.some(
+    (cliente) => cliente.id === idCliente,
+  );
+
+  if (!clienteEncontrado) {
+    response.status(404).send({ error: "Cliente nao encontrado" });
+  } else {
+    const clientesFiltrados = db.data.clientes.filter(
+      (cliente) => cliente.id !== idCliente,
+    );
+
+    db.data.clientes = clientesFiltrados;
+
+    await db.write();
+
+    // response.send({ mensagem: "Deletado com sucesso" });
+    response.status(204).send();
+  }
+});
+
 app.listen(PORTA, () => {
   console.log("Servidor está rodando");
 });
