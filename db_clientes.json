@@ -1,17 +1,119 @@
 {
   "clientes": [
     {
+      "id": 1,
+      "nome": "Ana",
+      "salario": 1500,
+      "habilitacao": true
+    },
+    {
+      "id": 2,
+      "nome": "",
+      "salario": -1000,
+      "habilitacao": true
+    },
+    {
+      "id": 3,
+      "nome": "Carla",
+      "salario": 1800,
+      "habilitacao": false
+    },
+    {
       "id": 4,
+      "nome": "Daniel",
+      "salario": 2500,
+      "habilitacao": true
+    },
+    {
+      "id": 6,
+      "nome": "Fernanda",
+      "salario": 2100,
+      "habilitacao": true
+    },
+    {
+      "id": 7,
+      "nome": "Gabriela",
+      "salario": 3200,
+      "habilitacao": true
+    },
+    {
+      "id": 8,
+      "nome": "Henrique",
+      "salario": 1700,
+      "habilitacao": false
+    },
+    {
+      "id": 9,
+      "nome": "Isabela",
+      "salario": 2600,
+      "habilitacao": true
+    },
+    {
+      "id": 10,
       "nome": "Joao",
       "salario": 1120,
       "habilitacao": true
     },
     {
-      "id": 5,
-      "nome": "Pedro",
-      "salario": 11111111,
+      "id": 11,
+      "nome": "Joaquim",
+      "salario": 3000,
+      "habilitacao": false
+    },
+    {
+      "id": 12,
+      "nome": "Karina",
+      "salario": 1950,
+      "habilitacao": false
+    },
+    {
+      "id": 13,
+      "nome": "Leonardo",
+      "salario": 2800,
+      "habilitacao": true
+    },
+    {
+      "id": 14,
+      "nome": "Mariana",
+      "salario": 2350,
+      "habilitacao": true
+    },
+    {
+      "id": 15,
+      "nome": "Nicolas",
+      "salario": 1400,
+      "habilitacao": false
+    },
+    {
+      "id": 16,
+      "nome": "Olivia",
+      "salario": 3100,
+      "habilitacao": true
+    },
+    {
+      "id": 17,
+      "nome": "Paulo",
+      "salario": 1750,
+      "habilitacao": true
+    },
+    {
+      "id": 18,
+      "nome": "Quenia",
+      "salario": 2050,
+      "habilitacao": false
+    },
+    {
+      "id": 19,
+      "nome": "Rafael",
+      "salario": 2900,
+      "habilitacao": true
+    },
+    {
+      "id": 20,
+      "nome": "Sofia",
+      "salario": 2200,
       "habilitacao": true
     }
   ],
-  "contador_clientes": 6
+  "contador_clientes": 21
 }

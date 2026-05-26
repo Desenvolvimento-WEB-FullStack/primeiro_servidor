@@ -90,6 +90,51 @@ app.delete("/clientes/:id", async (request, response) => {
   }
 });
 
+app.put("/clientes/:id", async (request, response) => {
+  const idCliente = Number(request.params.id);
+  const dadosNoBody = request.body;
+
+  /* ETAPA  1 - VALIDICACAO */
+
+  if (dadosNoBody.nome && typeof dadosNoBody.nome !== "string") {
+    response.status(400).send({ error: "Nome é obrigatório" });
+  }
+
+  const clienteEncontrado = db.data.clientes.some(
+    (cliente) => cliente.id === idCliente,
+  );
+
+  if (!clienteEncontrado) {
+    response.status(404).send({ error: "Cliente nao encontrado" });
+  } else {
+    // ETAPA 2 - MAPEAMENTO
+    const clientesAlterados = db.data.clientes.map((cliente) => {
+      if (cliente.id === idCliente) {
+        if (dadosNoBody.nome !== undefined) {
+          cliente.nome = dadosNoBody.nome;
+        }
+
+        if (dadosNoBody.salario !== undefined) {
+          cliente.salario = dadosNoBody.salario;
+        }
+
+        if (dadosNoBody.habilitacao !== undefined) {
+          cliente.habilitacao = dadosNoBody.habilitacao;
+        }
+      }
+      return cliente;
+    });
+    console.log(clientesAlterados);
+
+    // ETAPA 3 - PERSISTENCIA
+    db.data.clientes = clientesAlterados;
+    await db.write();
+
+    response.send({ mensagem: "atualizado com sucesso" });
+  }
+  /*FIM DA VALIDACAO */
+});
+
 app.listen(PORTA, () => {
   console.log("Servidor está rodando");
 });
