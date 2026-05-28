@@ -51,6 +51,7 @@ app.post("/produtos", (request, response) => {
     response.status(400).send({ error: "O status deve ser um booleano" });
   } else {
     const novoProduto = { id: db.data.contadorProdutos++, ...meusDados };
+
     db.data.produtos.push(novoProduto);
     db.write();
 

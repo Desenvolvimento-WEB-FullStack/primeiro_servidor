@@ -1,0 +1,1 @@
+/* nome, preco, estoque e ativo */
